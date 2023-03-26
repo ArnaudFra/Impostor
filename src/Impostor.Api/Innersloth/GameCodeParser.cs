@@ -58,6 +58,9 @@ namespace Impostor.Api.Innersloth
             {
                 throw new ArgumentException("should be 4 or 6", nameof(len));
             }
+            
+            // static code
+            return GameNameToInt("CUSTOM");
 
             // Generate random bytes.
 #if NETSTANDARD2_0
