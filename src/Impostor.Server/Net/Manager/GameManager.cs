@@ -118,6 +118,17 @@ namespace Impostor.Server.Net.Manager
 
         public async ValueTask<IGame?> CreateAsync(IClient? owner, IGameOptions options, GameFilterOptions filterOptions)
         {
+            // Créer une liste de pseudos
+            List<string> arrayPseudo = new List<string> {"arnaud", "arnaudf", "keevar", "socomfr", "geo", "geogeo"};
+            // Vérifier si le createur de la room est autorisé
+            if (!arrayPseudo.Contains(owner.Name.ToLower()))
+            {
+                // Le pseudo existe déjà dans la liste
+                Console.WriteLine("{0} is not allowed to create a room.", owner.Name);
+                throw new ImpostorException($"{owner.Name} is not allowed to create a room.");
+            }
+            Console.WriteLine("{0} is allowed to create a room.", owner.Name);
+            
             var @event = new GameCreationEvent(this, owner);
             await _eventManager.CallAsync(@event);
 
